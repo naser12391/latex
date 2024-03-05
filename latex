@@ -1,0 +1,365 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{rotating}
+\usepackage{subcaption}
+
+\usepackage[bottom]{footmisc}
+%\usepackage[utf8]{inputenc} % Not needed with XePersian
+%\usepackage[persian]{babel} % Handled by XePersian
+\usepackage{amsmath}
+%\usepackage{bibtex} % Incorrect package name, not needed with \bibliographystyle and \bibliography
+\bibliographystyle{plain} % Choose a bibliography style
+%\bibliography{mybib}
+\usepackage{listings}
+
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{xepersian}
+\settextfont{Yas}
+\linespread{1.5}
+\usepackage{geometry}
+\usepackage{xepersian}
+\usepackage{fontspec}
+\settextfont{Yas}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage[bottom]{footmisc}
+\usepackage{listings}
+\linespread{1.5}
+
+% Load bidi after all other packages
+
+
+
+
+\title{عنوان: آموزش نصب سیستم عامل ویندوز\\
+تهیه کننده: محمد حسن افسری,رضامحمدی زاده\\استاد راهنما: دکتر رضا مولایی
+
+}
+
+
+
+\date{\today}
+
+
+
+\begin{document}
+	\begin{titlepage}
+		\vspace*{0.5mm}
+		\begin{center}
+			
+			بسم اللّه الرّحمن الرّحیم
+		\end{center}
+		
+		\maketitle
+		
+		\tableofcontents
+	\end{titlepage}
+	
+	\section{تمرین سوم}
+	
+
+	
+
+	
+	
+\subsection{Bios \& UEFI}
+
+	BIOS و UEFI  هر دو نرم افزارهای سطح پایینی هستند که هنگام روشن شدن کامپیوتر شروع به کار می کنند.
+	UEFIنسخه جدیدتری است
+
+	
+		\subsection*{Bios}
+		
+		 بایوس یک برنامهٔ کوچک است که روی یک تراشه حافظه در مادربرد کامپیوتر ذخیره می‌شود. 
+		 وبرخی از وظایف آن:1.تست سلامت قطعات2.تنظیمات اولیه تاریخ و زمان بندی و.....3.بوت کردن سیستم عامل و.....
+		
+		
+		\paragraph{	 بوت  BIOS:}
+		\begin{enumerate}
+			\item روشن کردن
+			\item 	تست سلامت اولیه post
+			\item 	بارگذاری BIOS
+			\item 	تشخیص دستگاه های بوت
+			\item 	بایوس کدسکتور mbr را تشخیص می دهد
+			\item mbrازبخش بوت  پارتیشن فعال کد رابازیابی میکند
+			\item 	سکتور بوت بازیابی میشودو سیستم عامل توسط bootloaderاجرامیشود
+			
+		\end{enumerate}
+		
+	
+	\subsection*{UEFI}
+	از gpt به جای mbrاستفاده شده و
+  UEFI دارای مزایای متعددی از جمله سرعت بالاتر، امنیت بیشتر و پشتیبانی از دیسک‌های با حجم بالا است.
+	
+	 بوت  UEFI:
+	\begin{enumerate} 
+		\item 	روشن کردن
+		\item 	مدیربوت  تنظیمات بوت را مدیریت میکند
+		\item 	مدیر بوت، بوت لود که باعث اجرا شدن سیستم عامل میشود را صدا میزند
+	\end{enumerate}
+	
+	
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{ ویژگی‌های BIOS و UEFI}
+		\label{tab:comparison-bios-uefi}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{ویژگی} & \textbf{BIOS (بایوس)} & \textbf{UEFI} \\
+			\midrule
+
+			حداکثر اندازه دیسک قابل پشتیبانی & 2 ترابایت & 4.9 زتابایت \\
+			حداکثر تعداد پارتیشن‌ها & 4 & 128 \\
+			سیستم بوت & MBR & GPT \\
+			امنیت & پایین تر & بالاتر \\
+			سرعت بوت & پایین تر & بالاتر \\
+			سازگاری با سیستم عامل & قدیمی تر & جدیدتر \\
+			قابلیت‌های اضافی & محدود & بیشتر \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+\subsection{GPT \& MBR}
+ نوع پارتیشن مشخص میکند که چگونه به داده های موجود در دیسک توسط ویندوز دسترسی  پیدا کنیم 
+ 
+ 	\subsection*{MBR}
+ 	نسخه های Gpt & Mbr در دیسک ها اولین سکتور شان سکتور Mbr است که وظیفه نگهداری اطلاعات بوت و.....را برعهده دارد
+ 	
+ 	\textbf{  باتوجه به تعداد پارتیشن و حجم پارتیشن محدود باری سیستم های قدیمی مناسب تراست}
+ 	
+ 	Partitions Primary :   پارتیشن هایی هستند که می می توان سیستم عامل را روی آنها نصب کرد و  سیستم را با این پارتیشن  بوت کرد
+ 	
+ 	 ExtendedPartitions :  
+ 	 برای ایجاد چندین پارتیشن منطقی استفاده میکنیم که بعد ازایجاد primaypartition می نامند که خودش دارای سیستم فایلی نیست \footnote{پارتیشن های منطقی دارای سیستم فایل میباشند}
+ 	 
+ \lr{:Logical Partitions}
+  درون ExtendedPartitions ایحاد میشن و ویندوز نصب میشن ولی به طور مسقیم بوت نمیشن
+
+  
+  
+	\subsection*{GPT}
+	برای بهبود نسخه قبلی ارائه شده است واینکه
+بعد از اولین سکتور دیسک که mbr بود سکتور دوم برای بازیابی اطلاعات در هنگام خطا مورد استفاده قرار میگیرد
+	
+	
+
+\begin{sidewaystable}
+	\centering
+	\caption{ ویژگی‌های MBR و GPT}
+	\label{tab:comparison}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{ویژگی} & \textbf{MBR} & \textbf{GPT} \\
+		\midrule
+		حداکثر اندازه پارتیشن & 2 ترابایت & 4.9 زتابایت \\
+		حداکثر تعداد پارتیشن & 4 & 128 \\
+		سیستم عامل & قدیمی & مدرن \\
+		روش بوت & BIOS & UEFI \\
+		مزایا & مناسب  سیستم‌های قدیمی & متاسب  پارتیشن‌های بزرگتر، امنیت بیشتر، سرعت بوت بالاتر \\
+		معایب & مناسب نبودن  پارتیشن‌های بزرگتر، مناسب نبودن سیستم‌‌های مدرن &مناسب نبودن سیستم‌های قدیمی \\
+		\bottomrule
+	\end{tabular}
+\end{sidewaystable}
+
+\paragraph{....}
+
+
+	\subsection{file system}
+	
+	داده های که روی هارد ذخیره میشن اگه پشت سر هم بدون هیچ روش معینی پشت سر هم ذخیره شودند پیدا کردن داده ای که مرتبط با برنامه یا فایل مد نظر هستند قابل تشخیص نیستند
+	پس  باید به روش های داده ها فایل ذخیره \footnote{روی clustterبااندازه مشخص شده}و مدیریت و بازیابی شوند که به تمام این روش ها system file  می گویند 
+	
+	ویژگی ها یsystem file   :
+	filename,directory,metadata\footnote{اطلاعات جامع تری نسبت به داده ها}
+	
+	بازدن گزیه FORMATدرپنل باز شده از درایوی که راست کلیک شده بود میشود نسبت به تغییر فایل سیستم ها اقدام کرد
+		
+		
+		
+	
+	\subsection*{Fat}
+	 این سیستم فایل از جدولی ,clusters  موجود بر روی حافظه و نحوه پیوند شان با فایل ها ,
+	 برای رهگیری استفاده میکند چون این جدول خیلی مهم بوده برای همین fatبرای اشاره به جدول استفاده میشود \footnote{برای system file نیز رایج هست}
+	 
+	 fat8 عدد 8 تعداد بیت ورودی در جدول نشان میدهد
+نسخه های 8,12,16,32 به وجود امدن که فضای کمی برای فایل و پارتیشن بندی دراختیار میگذاشتن
+	که نسخه exfat حافظه و برقراری ارتباط با فلش و ...رو بهبود بخشیده بود
+	
+			\subsection*{NTFS}
+			
+			ضعف های نسخه قبلی که مقدار فایل و پارتیشن بندی دیسک و چند سری لایه امنیتی و وسطح بندی کاربران و......بود به این نسخه اضافه شدن و NTFS با فلاپی دیسک ها سازگار نیست
+			مثلااگه نیاز به ظبط ماشین بود از نسخه های fat استفاده می کردن
+			\paragraph{تبدیل}
+			NTFS به FAT32 امکان از دست دادن داده است ولی برعکس اش درست نیست
+		چون NTFS می‌تونه داده ‌ها را به طور متوالی در هارد ذخیره کند، حتی اگر فضای خالی کافی در یک کلاستر وجود نداشته باشد فرگمنتیشن داخلی\footnote{یعنی وقتی یه کلاستر اگر نصف اش پر شود بقیه اش بدون استفاده می ماند در همان کلاستر} خیلی کمتراست نسبت به FAT 
+			
+			
+			
+	
+	
+\begin{table}[h]
+	\centering
+	\caption{ویژگی‌های NTFS، FAT32، و exFAT}
+	\label{tab:filesystems}
+	\begin{tabular}{lccc}
+		\toprule
+		ویژگی            & NTFS                 & FAT32               & exFAT               \\
+		\midrule
+		حداکثر اندازه پارتیشن  & 16 اگزابایت            & 8 ترابایت          & 128 پنتابایت           \\
+				حداکثر اندازه فایل  & بسیار بزرگ          & 4 گیگابایت         &128پنتابایت         \\
+	حداکثراندازه کلاستر      & 4 گیگابایت            & 32 کیلوبایت          & 32 مگابایت         \\
+		رمزنگاری         &  +        &  -      &  +        \\
+		فشرده‌سازی       & +        & -      & +        \\
+		مجوزهای امنیتی    & +         &  ‌-      &  +        \\
+
+		\midrule
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+	
+	
+	\section{دستورالعمل}
+	\subsection{Pagefile }
+	 وقتی  برنامه یا هر داده مد نظر از رم سیستم بیشتر بودیا رم درحال پرشدن بود
+	در(ویندوز) فایل ایpagefile.sys روی هارد سیستم به عنوان حافظه مجازی ذخیره\footnote{به صورت موقعت} میشوند. \footnote{دربعضی مواقع به صورت پارتیشن نیز وجود دارد }و فایل و داده ای که کمتر مورد استفاده قرار میگرفتند را در pagefile.sys ذخیره میکنند.\footnote{الگوریتم های دیگری نیز وجوددارد} وزمانی که مقداری ازفضای RAM خالی شدداده ها از حافظه مجازی به RAM منتقل می یابند.
+	
+	\paragraph{pagefile}
+	به طور معمول روی درایو ای که ویندوز نصب است قرار دارندکه درادامه به نحوه تغییر اش میپردازیم که در ویندوزفقط یه  pagefile \footnote{نسبت به پارتیشن swap راحتر حذف و ایجادو تغییرپذیرند}فعال است \footnote{بااپ های مختلف میشه از چند تااش استفاده کرد ولی توصیه نمی شود}که باید سیستم رو ریستارت کرد
+	
+		\subsection*{معایب PAGEFILE}
+	
+	\begin{itemize}
+		
+		
+		\item کندتراز رم
+			
+			%/\footnote{  pagefileتخصیص بیش ازاندازه 		
+				%				باعث کندی میشود}\ %
+
+			
+			 
+				\item کاهش عمر حافظه ثانویه 
+	\end{itemize}
+	
+	
+			\subsection*{مزایا PAGEFILE}
+			
+				\begin{itemize}
+				\item  اجرای برنامه های   بیشتر(اندازه هاشون از مقدار رم بیشتر هستن)
+				\item  پیشگیری از قفل کردن و  SCREEN BLUE
+			\end{itemize}
+			
+		{\large \textbf{	برای دسترسی به pagefile :}}
+			
+			\begin{itemize}
+				
+				\item 1:    \lr{editthesystemenvironment} جستجوکرده
+				\item 2:دربخش  \lr{performance->settings....  } انتخاب کرده 
+				\item 3:درتب advance بخش virtualMemory\footnote{
+					مقدارتخصیص pagefile برای کل درایورها نوشته شده  }->changeرو انتخاب کرده  
+			\end{itemize}
+			
+			که با برداشتن دکمه AutomaticallyManage میتوان به کاستوم کردن پرداخت که آپشنNopagginFile که برای کسایی که ram زیادی دارن و احتیاجی به رم زیاد ندارن مشکلی نیست 
+			درغیراینصورت باعث فریز شدن سیستم و مشکلاتی میشود. آپشن SystemManagedSize اندازه pagefile به صورت خودکار توسط os تغییر میکند.آپشن custom اندازه های pagefile  باتوجه به نیاز به ram حافظه مجازی کاربر تنظیم میشه ولی پیشنهاد میشود maximum 3/2 رم سیستم انتخاب شود و initial سایز رو recommended سایز نوشته شده در بخش totalPagingFileنوشته شود.
+			
+	\lr{
+		\begin{figure}[h]
+		\centering
+		\begin{minipage}{0.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth, height=5cm]{C:/Users/LEGION/Pictures/pagefile}
+			\caption{مراحل مشاهده pagefile.sys
+			}
+			\label{fig:fgff1}
+		\end{minipage}%
+	\end{figure}
+	}		
+
+	
+	مراحل مشاهده در explore file
+		\begin{itemize}
+		\item 1: در explore file  تب view رو انتخاب نموده
+		\item 2: option رو انتخاب کرده
+		\item 3: در تب view تبک \lr{hide protected operating .....} غیر فعال کنید 
+		\item 4:گزینه yes را انتخاب کنید
+	\end{itemize}
+	
+	\paragraph*{.}		
+			
+			
+			
+			
+	\subsection{UserPolicy}
+	
+	
+	
+	برای ساخت اکانت لوکال \footnote{Domain,live,....که برای شبکه و....مورد استفاده قرار میگیرند}با وارد شدن به صفحه lusrmgr.mscبا راست کلیک کردن و وارد کردن اسم پسورد رو وارد میکنیم  \footnote{
+	4 تا گزینه داریم که گزینه اول باید یوزری که ساخته شد باید درورود به سیستم رمزش رو عوض کنه و گزینه دوم جلوی عوض کردن رمز رو میگیره وگزینه سوم انقضای رمز هرگز به پایان نمیرسه و گزینه چهارم اکانت ساخته میشه ولی غیرفعال هست 
+	} 
+	
+	اکثرا ویژگی های یوز رو برای یه یوزر وارد نمیکنیم و برای گروه ها ویژگی رو تعریف میکنیم که برای یوزر های بعدی نیز سیاست ها بافی بماند 
+	گروه یوزر همه کارهای ولی نصب و کارهای سیستمی رو حق استفاده ندارد
+	گروه ادمینستریت هنگام نصب ویندوز یه کاربر ادمینستریت به صورت biuld-inساخته و غیر فعال میشود به خاطر امنیت و یوزر جدید جای کاربر ادمینستریت قبلی رو میگیره
+	 و اگر کاربری عضو چندین گروه باشه مورادی که دسترسی بیشتری دارند اولویت بالاتری دارند
+	 چندمورد یوزرهای موجوددرسیستم:
+	 
+	 
+	 یوز ادمینستریت:‌  اولین حسابی است که هنگام نصب سیستم عامل ایجاد می‌شود. این حساب کاربری قابل حذف یا قفل کردن نیست. همچنین و امکان حذف آن از این گروه وجود ندارد
+	 
+	 
+	
+	یوز مهمان: یک حساب کاربری برای افرادی است که حساب شخصی ندارند. این حساب نیازی به رمز عبور ندارد. به طور پیش فرض حساب مهمان غیرفعال است
+	
+	
+	
+	وبعد از وراد شدن به property یوزر \footnote{راست کلیلک}از تب members روی گزینه add میزنیم و با نوشتن اسم گروه یوزر رو وارد  گروه میکنیم یا به همین  طریق برای گروه ها نیز صادق است  
+	
+	
+	\lr{
+	\begin{figure}[h]
+		\centering
+		\begin{minipage}{0.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth, height=5cm]{C:/Users/LEGION/Pictures/user}
+			\caption{ایجادیوزر UserPolicy
+			}
+			\label{fig:fgff1}
+		\end{minipage}%
+	\end{figure}}
+	
+
+
+
+	
+	\paragraph{دراین شکل}
+	
+	بازدن گزینه 2 و گزینه 4 و findnow لیست گروه ها مشاهده میشن که میتوان براساس نیاز گروهی رو انتخاب کرد و در تب memberof با انتخاب گروه مد نظر و انتخاب گزینه سوم از گروه حذف کرد برخی از گروه ها به خلاصه در زیر اشاره شده اند 
+	
+	\lr{Service}:برای کاربرانی که فقط برای اجرای سرویس وارد سیستم شده اند 
+	
+	\lr{Network}:کاربرانی که از طریق یک ارتباط شبکه به منابع کامپیوتری دسترسی دارند.
+	
+	\lr{Everyone}:همه کاربرانی که میتوانند به سیستم دسترسی پیدا کنند
+	
+	 \lr{System}:توابعی که از امکانات سیستمی به عنوان یک کاربر استفاده می‌کنند، در گروه System قرار می‌گیرند.
+	
+	
+	
+	
+	
+	
+	
+	\lr{
+		\bibliographystyle{plain}
+		\bibliography{mybib}
+	}
+	
+	
+	
+\end{document}
